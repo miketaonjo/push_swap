@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 //check si déja rangée
 int	is_sorted(t_elem *list)
 {
@@ -57,6 +56,24 @@ void	assign_index(t_elem *list)
 }
 
 //utils
+int	sup_all_list(t_list *list)
+{
+	t_element	*to_del;
+
+	if (list == NULL)
+		return (2);
+	to_del = list->first;
+	while (list->first != NULL)
+	{
+		list->first = list->first->next;
+		free(to_del);
+		to_del = list->first;
+	}
+	free(list);
+	list = NULL;
+	return (0);
+}
+
 t_list	*free_at(t_list *L, int pos)
 {
 	t_list	*prec;
