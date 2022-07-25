@@ -10,6 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//libft
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*new_list;
+	t_list	*tmp;
+
+	if (lst == NULL || f == NULL)
+		return (0);
+	new_list = NULL;
+	while (lst)
+	{
+		if (!(tmp = ft_lstnew((*f)(lst->content))))
+		{
+			ft_lstclear(&tmp, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&new_list, tmp);
+		lst = lst->next;
+	}
+	return (new_list);
+}
+
 //check si déja rangée
 int	is_sorted(t_elem *list)
 {
