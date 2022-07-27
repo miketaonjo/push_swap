@@ -31,20 +31,192 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	return (new_lst);
 }
 
+//afficher msg
+void	ra(t_node **stack_a)
+{
+	rotate(stack_a);
+	ft_putendl_fd("ra", 1);
+}
+
+void	rb(t_node **stack_b)
+{
+	rotate(stack_b);
+	ft_putendl_fd("rb", 1);
+}
+
+//algo
+int	min(t_node **stack, int number)
+{
+	t_node	*head;
+	int		min_index;
+
+	head = *stack;
+	min_index = head->index;
+	while (head->next)
+	{
+		head = head->next;
+		if ((head->index < min_index) && head->index != number)
+			min_index = head->index;
+	}
+	return (min_index);
+}
+
+// Renvoie la distance entre la node initiale et celle ayant l'index cherché
+int	get_distance_node(t_node **stack, int index)
+{
+	t_node	*head;
+	int		distance_node;
+
+	distance_node = 0;
+	head = *stack;
+	while (head)
+	{
+		if (head->index == index)
+			break ;
+		distance_node++;
+		head = head->next;
+	}
+	return (distance_node);
+}
+
+void	algo_for_four(t_node **stack_a, t_node **stack_b)
+{
+	int	distance;
+
+	distance = get_distance_node(stack_a, min(stack_a, -1));
+	if (distance == 1)
+		ra(stack_a);
+	else if (distance == 2)
+	{
+		ra(stack_a);
+		ra(stack_a);
+	}
+	else if (distance == 3)
+		rra(stack_a);
+	if (stack_is_sorted(stack_a))
+		return ;
+	pb(stack_a, stack_b);
+	sort_three(stack_a);
+	pa(stack_b, stack_a);
+}
+
+void	sort_five(t_node **stack_a, t_node **stack_b)
+{
+	int	distance;
+
+	distance = get_distance_node(stack_a, min(stack_a, -1));
+	if (distance == 1)
+		ra(stack_a);
+	else if (distance == 2)
+	{
+		ra(stack_a);
+		ra(stack_a);
+	}
+	else if (distance == 3)
+	{
+		rra(stack_a);
+		rra(stack_a);
+	}
+	else if (distance == 4)
+		rra(stack_a);
+	if (stack_is_sorted(stack_a))
+		return ;
+	pb(stack_a, stack_b);
+	sort_four(stack_a, stack_b);
+	pa(stack_b, stack_a);
+}
+
 //check si déja rangée
 int	is_sorted(t_elem *list)
 {
-	while (list->next)
+	t_elem	*tmp;
+	
+	tmp = list;
+	while (tmp->next)
 	{
-		if (list->value > list->next->value)
+		if (tmp->value > tmp->next->value)
 			return (0);
-		list = list->next;
+		tmp = tmp->next;
 	}
 	return (1);
 }
 
+// Tri radix des valeurs par indexion binaire
+void	radix_sort(t_node **stack_a, t_node **stack_b)
+{
+	int		i;
+	int		j;
+	int		size;
+
+	i = 0;
+	size = ft_stack_size(*stack_a);
+	while (!stack_is_sorted(stack_a))
+	{
+		j = 0;
+		while (j++ < size)
+		{
+			if ((((*stack_a)->index >> i) & 1) == 1)
+				ra(stack_a);
+			else
+				pb(stack_a, stack_b);
+		}
+		while (ft_stack_size(*stack_b) != 0)
+			pa(stack_b, stack_a);
+		i++;
+	}
+}
 
 //index
+t_node	*create_node(int number)
+{
+	t_node	*new_node;
+
+	new_node = (t_node *) malloc(sizeof(t_node));
+	if (!new_node)
+		return (NULL);
+	new_node -> number = number;
+	new_node -> index = -1;
+	new_node -> next = NULL;
+	return (new_node);
+}
+
+// Renvoie la prochaine valeur minimale de la stack
+t_elem	*get_next_min(t_elem *list)
+{
+	t_elem	*tmp;
+	t_elem	*min;
+	int	minimum;
+
+	min = NULL;
+	minimum = 0;
+	tmp = list;
+	while (tmp->next)
+	{
+		if ((tmp->index == -1) && (!minimum || tmp->value < min->value))
+		{
+			min = tmp;
+			minimum = 1;
+		}
+		tmp = tmp->next;
+	}
+	return (min);
+}
+
+// Attribue leur index aux nodes de la stack lors de l'initialisation
+void	put_index(t_elem *list)
+{
+	t_elem	*tmp;
+	int		index;
+
+	index = 0;
+	tmp = get_next_min(&list);
+	while (tmp->next)
+	{
+		tmp->index = index++;
+		tmp = get_next_min(&list);
+	}
+}
+
 void	assign_index(t_elem *list)
 {
 	t_stack	*tmp;
@@ -77,61 +249,30 @@ void	assign_index(t_elem *list)
 }
 
 //utils
-int	sup_all_list(t_list *list)
+void	free_stack(t_elem *list)
 {
-	t_element	*to_del;
+	t_elem	*lst;
+	t_elem	*tmp;
 
-	if (list == NULL)
-		return (2);
-	to_del = list->first;
-	while (list->first != NULL)
+	lst = list;
+	while (lst->next)
 	{
-		list->first = list->first->next;
-		free(to_del);
-		to_del = list->first;
+		tmp = lst;
+		lst = lst ->next;
+		free(tmp);
 	}
 	free(list);
-	list = NULL;
-	return (0);
 }
 
-t_list	*free_at(t_list *L, int pos)
+void	ft_free(char **str)
 {
-	t_list	*prec;
-	t_list	*cur;
-	int		i;
+	int	i;
 
-	prec = L;
-	cur = L;
-	if (is_empty_list(L))
-		return (NULL);
-	if (pos == 0)
-	{
-		L = L->next;
-		free(cur);
-		return (L);
-	}
 	i = 0;
-	while (i++ < pos)
+	while (str[i])
 	{
-		prec = cur;
-		cur = cur->next;
+		free(str[i]);
+		i++;
 	}
-	prec->next = cur->next;
-	free(cur);
-	return (L);
-}
-
-t_list	*free_list(t_list *L)
-{
-	t_list	*tmp;
-
-	tmp = NULL;
-	while (L)
-	{
-		tmp = L->next;
-		free(L);
-		L = tmp;
-	}
-	return (L);
+	free(str);
 }
