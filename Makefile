@@ -6,7 +6,7 @@
 #    By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 09:45:57 by mcloarec          #+#    #+#              #
-#    Updated: 2022/07/20 18:25:27 by mcloarec         ###   ########.fr        #
+#    Updated: 2022/07/28 14:48:49 by mcloarec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,10 @@ SRCS += srcs/error.c
 SRCS += srcs/utils.c
 SRCS += srcs/stack.c
 SRCS += srcs/moves.c
+SRCS += srcs/rotate.c
+SRCS += srcs/algo.c
+SRCS += srcs/index.c
+SRCS += srcs/moves_rotate.c
 
 OBJS = $(SRCS:.c=.o)
 

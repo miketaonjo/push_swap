@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 10:20:14 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/20 16:10:40 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/07/29 12:39:05 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,50 +20,45 @@ t_elem	*new_elem(int n)
 	if (!new)
 		return (NULL);
 	new->value = n;
+	new->index = -1;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
 }
 
-t_elem    *add_elem(t_elem *list, int value)
+void	add_elem_front(t_elem **list, t_elem *tmp)
 {
-    while (list->next)
-        list = list->next;
-    list->next = new_elem(value);
-    list->next->prev = list;
-    list->next->next = NULL;
-	return (list);
+	tmp->next = *list;
+	tmp->prev = NULL;
+	*list = tmp;
 }
 
-/*t_elem	*add_elem(t_elem *list, int value)
-{*
-	t_elem	*new;
+void	add_elem_back(t_elem **list, int value)
+{
+	t_elem	*tmp;
 
-	new = new_elem(value);
-	if (list == NULL)
-		return (new);
-	while (list->next != NULL)
-		list = list->next;
-	new->prev = list;
-	list->next = new;
-	new->next = NULL;
-	return (list);
-}*/
+	tmp = *list;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new_elem(value);
+	tmp->next->prev = tmp;
+	tmp->next->next = NULL;
+}
 
 t_elem	*fill_stack(char **argv, t_elem *list)
 {
-	int	value;
-	int	i;
+	int		value;
+	int		i;
 
 	i = 1;
 	list = new_elem(ft_atoli(argv[0]));
 	while (argv[i])
 	{
 		value = ft_atoli(argv[i]);
-		list = add_elem(list, value);
+		add_elem_back(&list, value);
 		i++;
 	}
-	print_list(list);
+	find_biggest(list);
 	return (list);
 }
 
@@ -76,15 +71,13 @@ t_elem	*fill_stack_split(char *str, t_elem *list)
 	tab = ft_split(str, ' ');
 	i = 1;
 	list = new_elem(ft_atoli(tab[0]));
-	//free(tab[0]);
 	while (tab[i])
 	{
 		value = ft_atoli(tab[i]);
-		list = add_elem(list, value);
-		//free(tab[i]);
+		add_elem_back(&list, value);
 		i++;
 	}
 	free_tab(tab);
-	print_list(list);
+	find_biggest(list);
 	return (list);
 }
