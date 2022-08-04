@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 10:20:14 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/29 12:39:05 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/08/04 14:28:55 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,25 @@ void	add_elem_back(t_elem **list, int value)
 
 t_elem	*fill_stack(char **argv, t_elem *list)
 {
-	int		value;
 	int		i;
+	int		j;
+	char	*str;
 
 	i = 1;
-	list = new_elem(ft_atoli(argv[0]));
-	while (argv[i])
+	j = i + 1;
+	while (argv[j])
 	{
-		value = ft_atoli(argv[i]);
-		add_elem_back(&list, value);
-		i++;
+		if (i == 1)
+		{
+			str = ft_strjoin_space(argv[1], argv[j], j);
+			i++;
+		}
+		else
+			str = ft_strjoin_space(str, argv[j], j);
+		j++;
 	}
-	find_biggest(list);
+	list = fill_stack_split(str, list);
+	free(str);
 	return (list);
 }
 
@@ -78,6 +85,6 @@ t_elem	*fill_stack_split(char *str, t_elem *list)
 		i++;
 	}
 	free_tab(tab);
-	find_biggest(list);
+	get_size_stack(list);
 	return (list);
 }

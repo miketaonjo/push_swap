@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 09:55:05 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/28 16:33:09 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:06:23 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	nb_comp(long n1, long n2)
 {
 	int	diff;
-	
+
 	diff = 0;
 	diff = n1 - n2;
 	return (diff);
@@ -53,6 +53,9 @@ int	check_nb(char *str)
 		i++;
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 		i++;
+	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\n'
+		|| str[i] == '\r' || str[i] == '\t' || str[i] == '\v')
+		i++;
 	if (str[i] == '\0')
 		return (0);
 	return (1);
@@ -69,23 +72,14 @@ void	check_arg_split(char **argv)
 		if (*argv[i] == '\0')
 			putstr_error();
 		else if (check_nb(argv[i]) == 1)
-		{
-			free_tab(argv);
-			putstr_error();
-		}
+			putstr_error_tab(argv);
 		l = ft_atoli(argv[i]);
-		if (l < INT_MIN || l > INT_MAX)
-		{
-			free_tab(argv);
-			putstr_error();
-		}
+		if (l == -2147483650)
+			putstr_error_tab(argv);
 		i++;
 	}
 	if (check_duplicata(argv) == 1)
-	{
-		free_tab(argv);
-		putstr_error();
-	}
+		putstr_error_tab(argv);
 }
 
 void	check_arg(char **argv)

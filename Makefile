@@ -6,7 +6,7 @@
 #    By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 09:45:57 by mcloarec          #+#    #+#              #
-#    Updated: 2022/07/28 14:48:49 by mcloarec         ###   ########.fr        #
+#    Updated: 2022/08/04 15:35:52 by mcloarec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS += srcs/rotate.c
 SRCS += srcs/algo.c
 SRCS += srcs/index.c
 SRCS += srcs/moves_rotate.c
+SRCS += srcs/push_swap.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -39,18 +40,22 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 		@make -sC libft
+		echo "Libft compilation completed"
 		$(CC) $(CFLAGS) $(OBJS) -Llibft -lft -o $(NAME)
+		echo "Push_swap compilation completed"
 
 clean:
 		@make -sC libft clean
 		$(RM) $(OBJS)
+		echo "clean done"
 
 fclean: clean
 		@make -sC libft fclean
 		$(RM) $(NAME)
+		echo "fclean done"
 
-run:
-	./$(NAME)
 re: fclean all
+
+.SILENT: 
 
 .PHONY: all clean fclean re

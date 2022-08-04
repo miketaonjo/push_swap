@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 17:15:00 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/28 15:02:29 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/07/30 16:05:06 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	pa(t_stack *stacks)
 	if (list_size(stacks->a) > 1)
 		old_first_a->prev = old_first;
 	stacks->b = new_first;
-	//stacks->b->prev = NULL;
 	ft_printf("pa\n");
 }
 

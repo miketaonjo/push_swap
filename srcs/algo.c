@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 14:21:15 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/29 18:48:52 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:28:06 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ void	algo_push_swap(t_stack *stacks)
 	int	size_stack_a;
 	int	i;
 	int	bit_int;
-	int size_stack_b;
+	int	size_stack_b;
 
-	i = 1;
+	i = 0;
 	bit_int = 32;
 	while (i < bit_int)
 	{
-		size_stack_a = list_size(stacks->a);
 		if (check_sort(stacks->a) == 0)
-				return ;
+			return ;
+		size_stack_a = list_size(stacks->a);
 		while (size_stack_a > 0)
 		{
 			if (stacks->a->index >> i & 1)
@@ -35,11 +35,8 @@ void	algo_push_swap(t_stack *stacks)
 			size_stack_a--;
 		}
 		size_stack_b = list_size(stacks->b);
-		while (size_stack_b > 0)
-		{
+		while (size_stack_b-- > 0)
 			pa(stacks);
-			size_stack_b--;
-		}
 		i++;
 	}
 }
@@ -129,14 +126,23 @@ void	algo_for_three(t_elem *list)
 
 void	apply_algo(t_stack *stacks)
 {
-	if (list_size(stacks->a) == 2 && stacks->a->value > stacks->a->next->value)
-		swap(stacks->a);
-	else if (list_size(stacks->a) == 3)
-		algo_for_three(stacks->a);
-	else if (list_size(stacks->a) == 4)
-		algo_for_four(stacks);
-	else if (list_size(stacks->a) == 5)
-		algo_for_five(stacks);
+	if (check_sort(stacks->a) == 1)
+	{
+		if (list_size(stacks->a) == 2
+			&& stacks->a->value > stacks->a->next->value)
+			sa(stacks->a);
+		else if (list_size(stacks->a) == 3)
+			algo_for_three(stacks->a);
+		else if (list_size(stacks->a) == 4)
+			algo_for_four(stacks);
+		else if (list_size(stacks->a) == 5)
+			algo_for_five(stacks);
+		else
+			algo_push_swap(stacks);
+	}
 	else
-		algo_push_swap(stacks);
+	{
+		free_elem(stacks->a);
+		exit(0);
+	}
 }

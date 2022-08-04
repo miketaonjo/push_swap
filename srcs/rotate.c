@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:30:24 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/29 15:38:45 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/07/30 14:30:51 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,25 @@ void	swap(t_elem *list)
 
 void	rotate(t_elem *list)
 {
-	int	tmp;
+	int		tmp;
+	int		index;
+	t_elem	*start;
 
 	if (!list)
 		return ;
+	start = list;
 	tmp = list->value;
-	list->value = list->next->value;
-	list->index = list->next->index;
-	while (list->next)
+	index = list->index;
+	start->value = start->next->value;
+	start->index = start->next->index;
+	while (start->next)
 	{
-		list->value = list->next->value;
-		list->index = list->next->index;
-		list = list->next;
+		start->value = start->next->value;
+		start->index = start->next->index;
+		start = start->next;
 	}
-	list->value = tmp;
+	start->value = tmp;
+	start->index = index;
 }
 
 void	rr(t_stack *stacks)
