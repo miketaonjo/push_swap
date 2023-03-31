@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 20:31:13 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/30 16:14:47 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/04/01 13:36:02 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/04/11 16:43:10 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	putstr_error(void)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
+	void			*p;
 
-void	putstr_error_tab(char **argv)
-{
-	free_tab(argv);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	if (size > 2147483647 || nmemb > 2147483647)
+		return (NULL);
+	p = malloc(nmemb * size);
+	if (!p || (nmemb * size > 2147483647))
+		return (NULL);
+	ft_memset(p, 0, nmemb * size);
+	return (p);
 }

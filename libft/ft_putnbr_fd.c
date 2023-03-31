@@ -1,26 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 20:31:13 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/30 16:14:47 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/04/19 14:08:36 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/04/19 14:09:06 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	putstr_error(void)
+void	ft_putnbr_fd(int n, int fd)
 {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
+	char	c;
 
-void	putstr_error_tab(char **argv)
-{
-	free_tab(argv);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	else
+	{
+		if (n < 0)
+		{
+			write(fd, "-", 1);
+			n = -n;
+			ft_putnbr_fd(n, fd);
+		}
+		else if (n < 10)
+		{
+			c = n + '0';
+			write(fd, &c, 1);
+		}
+		else
+		{
+			ft_putnbr_fd(n / 10, fd);
+			c = (n % 10) + '0';
+			write(fd, &c, 1);
+		}
+	}
 }

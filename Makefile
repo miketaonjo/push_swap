@@ -10,6 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
+NAME = push_swap
+
+CC = gcc
+
+CFLAGS = -g3 -Wall -Wextra -Werror
+
 SRCS = 	srcs/main.c
 SRCS += srcs/check.c
 SRCS += srcs/free.c
@@ -25,13 +31,7 @@ SRCS += srcs/push_swap.c
 
 OBJS = $(SRCS:.c=.o)
 
-NAME = push_swap
-
-CC = gcc
-
 RM = rm -f
-
-CFLAGS = -g3 -Wall -Wextra -Werror
 
 all: $(NAME)
 

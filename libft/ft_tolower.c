@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 20:31:13 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/30 16:14:47 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/03/31 15:27:19 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/03/31 15:28:14 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	putstr_error(void)
+int	ft_tolower(int c)
 {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
-
-void	putstr_error_tab(char **argv)
-{
-	free_tab(argv);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	if (c >= 65 && c <= 90)
+	{
+		c = c + 32;
+	}
+	return (c);
 }

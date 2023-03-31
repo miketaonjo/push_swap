@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 13:35:15 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/28 17:51:00 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/04/28 09:25:48 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/05/13 10:08:46 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	free_tab(char **tab)
+char	*get_next_line_bonus(int fd)
 {
-	int	i;
+	static char	*line[1000];
+	char		*result;
 
-	i = 0;
-	while (tab[i] != NULL)
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	if (line[fd] == NULL)
 	{
-		free(tab[i]);
-		i++;
+		line[fd] = ft_calloc_gnl(sizeof(char), 1);
+		if (!line[fd])
+			return (NULL);
 	}
-	free(tab);
-}
-
-void	free_elem(t_elem *list)
-{
-	t_elem	*tmp;
-
-	if (list->prev != NULL)
-		list = list->prev;
-	while (list->next)
-	{
-		tmp = list;
-		list = list->next;
-		free(tmp);
-	}
-	free(list);
+	line[fd] = ft_read_line(fd, line[fd]);
+	if (!line[fd])
+		return (NULL);
+	result = ft_save_line(line[fd]);
+	line[fd] = ft_move_to_line(line[fd]);
+	return (result);
 }

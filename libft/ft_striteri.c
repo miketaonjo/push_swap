@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 20:31:13 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/30 16:14:47 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/04/19 14:06:08 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/04/19 14:06:16 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	putstr_error(void)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
+	unsigned int	i;
 
-void	putstr_error_tab(char **argv)
-{
-	free_tab(argv);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	if (s != 0 && f != 0)
+	{
+		i = 0;
+		while (s[i])
+		{
+			f(i, s + i);
+			i++;
+		}
+	}
 }

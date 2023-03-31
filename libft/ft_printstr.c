@@ -1,26 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_printstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 20:31:13 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/30 16:14:47 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/04/22 11:22:47 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/05/12 17:54:25 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	putstr_error(void)
+static void	ft_putstr(char *str)
 {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
 }
 
-void	putstr_error_tab(char **argv)
+int	ft_printstr(char *str)
 {
-	free_tab(argv);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+	{
+		ft_putstr("(null)");
+		return (6);
+	}
+	while (str[i] != '\0')
+	{
+		ft_printchar(str[i]);
+		i++;
+	}
+	return (i);
 }

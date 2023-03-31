@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 20:31:13 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/30 16:14:47 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/04/01 10:01:33 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/04/01 10:41:04 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	putstr_error(void)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
+	unsigned char	*str;
 
-void	putstr_error_tab(char **argv)
-{
-	free_tab(argv);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	str = (unsigned char *)s;
+	while (n > 0)
+	{
+		if (*str == (unsigned char )c)
+			return (str);
+		str++;
+		n--;
+	}
+	return (NULL);
 }

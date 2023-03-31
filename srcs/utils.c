@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../includes/push_swap.h"
 
 char	*ft_strjoin_space(char const *s1, char const *s2, int n)
 {

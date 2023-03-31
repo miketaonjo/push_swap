@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 20:31:13 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/30 16:14:47 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/03/29 09:29:49 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/03/31 14:46:01 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include"libft.h"
 
-void	putstr_error(void)
+size_t	ft_strlen(const char *s)
 {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
+	size_t	t;
 
-void	putstr_error_tab(char **argv)
-{
-	free_tab(argv);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	t = 0;
+	while (s[t] != '\0')
+	{
+		t++;
+	}
+	return (t);
 }

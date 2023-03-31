@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 13:35:15 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/28 17:51:00 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/04/01 12:17:30 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/04/01 13:32:24 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	free_tab(char **tab)
+int	ft_atoi(const char *nptr)
 {
 	int	i;
+	int	minus;
+	int	result;
 
 	i = 0;
-	while (tab[i] != NULL)
+	while (nptr[i] == ' ' || nptr[i] == '\f' || nptr[i] == '\n'
+		|| nptr[i] == '\r' || nptr[i] == '\t' || nptr[i] == '\v')
+		i++;
+	minus = 1;
+	if (nptr[i] == '+' || nptr[i] == '-')
 	{
-		free(tab[i]);
+		if (nptr[i] == '-')
+			minus = -1;
 		i++;
 	}
-	free(tab);
-}
-
-void	free_elem(t_elem *list)
-{
-	t_elem	*tmp;
-
-	if (list->prev != NULL)
-		list = list->prev;
-	while (list->next)
+	result = 0;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		tmp = list;
-		list = list->next;
-		free(tmp);
+		result = result * 10 + (nptr[i] - 48);
+		i++;
 	}
-	free(list);
+	return (result * minus);
 }

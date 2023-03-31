@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 20:31:13 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/30 16:14:47 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/04/20 17:41:01 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/04/21 09:26:18 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	putstr_error(void)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
+	t_list	*new_lst;
 
-void	putstr_error_tab(char **argv)
-{
-	free_tab(argv);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	if (*lst)
+	{
+		while (*lst)
+		{
+			new_lst = (*lst)->next;
+			ft_lstdelone(*lst, del);
+			*lst = new_lst;
+		}
+		*lst = NULL;
+	}
 }

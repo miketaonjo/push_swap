@@ -1,26 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 20:31:13 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/30 16:14:47 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/04/08 17:08:57 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/04/09 11:26:56 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	putstr_error(void)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
+	char	*str;
+	size_t	total;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
-void	putstr_error_tab(char **argv)
-{
-	free_tab(argv);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	total = ft_strlen(s1) + ft_strlen(s2) + 1;
+	str = (char *)malloc(sizeof(char) * total);
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0')
+	{
+		str[j++] = s1[i++];
+	}
+	k = 0;
+	while (s2[k] != '\0')
+	{
+		str[j] = s2[k];
+		j++;
+		k++;
+	}
+	str[j] = '\0';
+	return (str);
 }

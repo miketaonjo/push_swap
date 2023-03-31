@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 13:35:15 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/28 17:51:00 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/04/01 10:58:57 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/04/01 12:13:53 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	free_tab(char **tab)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
 	i = 0;
-	while (tab[i] != NULL)
+	if (little[i] == '\0')
+		return ((char *)big);
+	while (big[i] != '\0' && i < len)
 	{
-		free(tab[i]);
+		j = 0;
+		if (big[i] == little[j])
+		{
+			k = 0;
+			while (big[i + k] == little[j] && little[j] != 0 && (i + k) < len)
+			{
+				k++;
+				j++;
+			}
+			if (little[j] == '\0')
+				return ((char *)big + i);
+		}
 		i++;
 	}
-	free(tab);
-}
-
-void	free_elem(t_elem *list)
-{
-	t_elem	*tmp;
-
-	if (list->prev != NULL)
-		list = list->prev;
-	while (list->next)
-	{
-		tmp = list;
-		list = list->next;
-		free(tmp);
-	}
-	free(list);
+	return (0);
 }

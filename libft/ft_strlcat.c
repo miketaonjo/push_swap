@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 13:35:15 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/07/28 17:51:00 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/03/31 15:32:38 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/03/31 17:48:06 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "libft.h"
 
-void	free_tab(char **tab)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
+	j = ft_strlen(dst);
+	if (size == 0)
+		return (ft_strlen(src));
+	if (j > size)
+		return (size + ft_strlen(src));
 	i = 0;
-	while (tab[i] != NULL)
-	{
-		free(tab[i]);
+	while (dst[i] != '\0' && i < size)
 		i++;
-	}
-	free(tab);
-}
-
-void	free_elem(t_elem *list)
-{
-	t_elem	*tmp;
-
-	if (list->prev != NULL)
-		list = list->prev;
-	while (list->next)
+	k = 0;
+	while (size > (j + 1) && src[k] != '\0')
 	{
-		tmp = list;
-		list = list->next;
-		free(tmp);
+		dst[i] = src[k];
+		i++;
+		k++;
+		size--;
 	}
-	free(list);
+	dst[i] = '\0';
+	return (j + ft_strlen(src));
 }
