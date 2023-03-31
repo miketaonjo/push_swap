@@ -66,7 +66,7 @@ In order to compile :
 <code>make</code>
 
 Execution :
-<code>./push_swap <list of numbers without any duplicates></code>
+<code>./push_swap (list of numbers without any duplicates)></code>
 
 Output :
 If the arguments are valid, the program will output the most efficient list of actions to sort the list
