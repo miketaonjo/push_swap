@@ -31,19 +31,14 @@ Sorting 100 values: rating from 1 to 5 points depending on the number of actions
 4 points for less than 900<br>
 3 points for less than 1100<br>
 2 points for less than 1300<br>
-
 1 point for less than 1500<br>
 
 Sorting 500 values: rating from 1 to 5 points depending on the number of actions:<br>
 
 5 points for less than 5500 actions<br>
-
 4 points for less than 7000<br>
-
 3 points for less than 8500<br>
-
 2 points for less than 10000<br>
-
 1 point for less than 11500<br>
 
 ## Usage
